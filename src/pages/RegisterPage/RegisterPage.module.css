@@ -3,9 +3,8 @@
 .registerPage {
   display: flex;
   justify-content: center;
-  height: 100vh; /* Use viewport height directly */
+  height: 100vh;
   overflow: hidden; /* Prevent any potential scrolling */
-  margin: 0; /* Remove default margin for full-screen coverage */
 }
 
 .leftSection {
@@ -17,8 +16,8 @@
   justify-content: center;
   align-items: center;
   font-family: 'Open Sans', sans-serif;
-  height: 100vh; /* Set explicit height, redundant due to parent's 'height: 100vh' */
-  margin: 0;
+  /* Set explicit height, redundant due to parent's 'height: 100vh' */
+  /* height: 100%;  */
 }
 
 .leftSection h2 {
@@ -40,6 +39,8 @@
   width: 35vw;
   padding:0 20px;
   /* height: 100vh; Redundant due to parent's 'height: 100vh' */
+  /* height: 100%; */
+
   font-family: 'Open Sans', sans-serif;
-  margin: 0;
+  
 }

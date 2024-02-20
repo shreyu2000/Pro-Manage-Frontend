@@ -53,7 +53,7 @@ const Register = () => {
       setError(error);
     } else {
       console.log("User registered successfully:", data);
-      navigate("/home");
+      navigate("/dashboard");
     }
   };
 
@@ -137,7 +137,7 @@ const Register = () => {
         </button>
       </form>
       <p className={styles.account}>Have an account? </p>
-      <button className={styles.loginButton} onClick={() => navigate("/login")}>
+      <button className={styles.loginButton} onClick={() => navigate("/")}>
         Log in
       </button>
     </div>

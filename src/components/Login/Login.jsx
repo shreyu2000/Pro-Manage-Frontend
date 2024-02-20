@@ -1,41 +1,88 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faLock, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+import styles from "./Login.module.css";
+import { loginUser } from "../../apis/userApi";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Logic to handle login with email and password
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  const { email, password } = formData;
+  try {
+    // Call the loginUser function from the API with an object containing email and password
+    const { data } = await loginUser({ email, password });
+    // If login is successful, redirect to home page
+    if(data.success){
+      console.log("User Logged in ", data);
+    navigate("/dashboard");
+    }
+   
+  } catch (error) {
+    // If login fails, set error message
+    setError(error.message);
+  }
+};
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
-    <div className="login-container">
-      <div className="left-side">
-        <img src="path/to/your/image" alt="Your Image" />
-      </div>
-      <div className="right-side">
-        <h2>Login</h2>
-        <form onSubmit={handleSubmit}>
-          <input 
-            type="email" 
-            placeholder="Email" 
-            value={email} 
-            onChange={(e) => setEmail(e.target.value)} 
-            required 
+    <div className={styles.container}>
+      <h2 className={styles.heading}>Login</h2>
+      {error && <p className={styles.error}>{error}</p>}
+      <form onSubmit={handleSubmit}>
+        <div className={styles.formGroup}>
+          <FontAwesomeIcon icon={faEnvelope} className={styles.icon} />
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Email"
+            className={styles.inputField}
+            required
           />
-          <input 
-            type="password" 
-            placeholder="Password" 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
-            required 
+        </div>
+        <div className={styles.formGroup}>
+          <FontAwesomeIcon icon={faLock} className={styles.icon} />
+          <input
+            type={showPassword ? "text" : "password"}
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="Password"
+            className={styles.inputField}
+            required
           />
-          <button type="submit">Log in</button>
-        </form>
-        <p>Have no account yet? <Link to="/register">Register</Link></p>
-      </div>
+          <FontAwesomeIcon
+            icon={showPassword ? faEye : faEyeSlash}
+            className={styles.eyeIcon}
+            onClick={togglePasswordVisibility}
+          />
+        </div>
+        <button type="submit" className={styles.button}>
+          Log in
+        </button>
+      </form>
+      <p className={styles.account}>Have no account yet?</p>
+      <button className={styles.registerButton} onClick={() => navigate("/register")}>
+        Register
+      </button>
     </div>
   );
 };

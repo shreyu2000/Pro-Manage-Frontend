@@ -1,0 +1,47 @@
+/* LoginPage.module.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+.loginPage {
+  display: flex;
+  justify-content: center;
+  height: 100vh; /* Use viewport height directly */
+  overflow: hidden; /* Prevent any potential scrolling */
+  margin: 0; /* Remove default margin for full-screen coverage */
+}
+
+.leftSection {
+  width: 65vw;
+  background-color: #17A2B8;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Open Sans', sans-serif;
+  height: 100vh; /* Set explicit height, redundant due to parent's 'height: 100vh' */
+  margin: 0;
+}
+
+.leftSection h2 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.leftSection p {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.leftSection img {
+  width: 350px;
+  height: 350px;
+}
+
+.rightSection {
+  width: 35vw;
+  padding: 0 20px;
+  /* height: 100vh; Redundant due to parent's 'height: 100vh' */
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+}

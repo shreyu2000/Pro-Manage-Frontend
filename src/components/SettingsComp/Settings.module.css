@@ -1,0 +1,65 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Adjusted to align items at the top left */
+  justify-content: flex-start; /* Adjusted to justify content at the top left */
+  height: 100vh;
+  overflow: hidden;
+  margin: 10px;
+  padding: 20px; /* Added padding for spacing */
+}
+
+  .heading {
+    font-size: 2rem;
+    color: #343434;
+    font-weight: 600;
+  }
+  
+  .formGroup {
+    width: 400px;
+    margin-bottom: 20px;
+    border: 1px solid #d0d0d0;
+    border-radius: 12px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .inputField {
+    flex: 1;
+    border: none;
+    outline: none;
+    height: 30px;
+    font-size: 1.1rem;
+  }
+  
+  .icon {
+    margin-right: 12px;
+    color: #828282;
+    font-size: 20px;
+  }
+  
+  .button {
+    width: 420px;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    height: 3rem;
+    font-size: 1.1rem;
+  }
+  
+  .eyeIcon {
+    cursor: pointer;
+    color: #828282;
+    font-size: 20px;
+  }
+  
+  .error {
+    color: #db371f;
+    font-size: 14px;
+  }
+  

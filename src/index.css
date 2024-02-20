@@ -2,16 +2,11 @@
 
 :root {
     --primary-color: #17A2B8;
+
 }
-  
-body {
+
+body{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-  
-
-button {
-    cursor: pointer;
-}
-  

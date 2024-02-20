@@ -1,0 +1,93 @@
+/* Login.module.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center vertically and horizontally */
+    height: 100vh; 
+    overflow: hidden; /* Prevent scrolling */
+}
+
+.heading {
+    font-size: 2rem;
+    position: absolute;
+    top: 3rem;
+    color: #343434;
+    font-weight: 600;
+}
+
+.formGroup {
+    width: 400px;
+    margin-bottom: 20px;
+    border: 1px solid #D0D0D0;
+    border-radius: 12px; /* Increased border radius */
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.inputField {
+    flex: 1;
+    border: none;
+    outline: none;
+    height: 30px; /* Reduced height */
+    font-size: 1.1rem;
+}
+
+.icon {
+    margin-right: 12px;
+    color: #828282;
+    font-size: 20px;
+}
+
+.button {
+    width: 420px;
+    margin-top: 20px; /* Add margin to separate from input fields */
+    padding: 10px;
+    background-color: #17A2B8;
+    color: white;
+    border: none;
+    border-radius: 40px; /* Apply border-radius to buttons */
+    cursor: pointer;
+    height: 3rem;
+    font-size: 1.1rem;
+}
+
+.registerButton {
+    border: 1px solid #17A2B8;
+}
+
+.eyeIcon {
+    cursor: pointer;
+    color: #828282;
+    font-size: 20px;
+}
+
+.error {
+    color: #DB371F;
+    font-size: 14px;
+}
+
+.registerButton {
+    width: 420px;
+    padding: 10px;
+    background-color: transparent;
+    color: #17A2B8;
+    border: 1px solid #17A2B8; /* Border color */
+    border-radius: 40px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    height: 3rem;
+    font-size: 1.2rem;
+}
+
+.registerButton:hover {
+    background-color: #17A2B8;
+    color: white;
+}
+
+.account {
+    font-size: 1.2rem;
+    color: #828282;
+}

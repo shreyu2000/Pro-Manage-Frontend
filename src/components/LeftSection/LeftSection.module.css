@@ -1,0 +1,62 @@
+.leftSection {
+    width: 15%; /* 20% width */
+    height: 100%;
+    background-color: #ffffff; /* Background color */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    color: #000000;
+    font-weight: 700;
+  }
+  
+  .logo img {
+    width: 23px; /* Adjust the width of the image */
+    height: 23px; /* Adjust the height of the image */
+    margin-right: 10px; /* Add some spacing between the image and the text */
+  }
+  .navLinks {
+    list-style: none;
+    padding: 0px;
+    
+  }
+  
+.navItem {
+    padding: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    font-size: 1.2rem;
+
+  }
+  
+  .navItem.active {
+    background-color: #4391ED1A; /* Active link background color */
+    color: #000000;/* Active link text color */
+    font-weight: 600;
+  }
+  .logoutButton {
+    margin-top: auto; /* Push logout button to the bottom */
+    padding: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #cf3636; /* Logout icon and text color */
+    background-color: transparent; /* Remove background color */
+    border: none; /* Remove border */
+    margin-bottom: 20px;
+  }
+  .icon {
+    margin-right: 10px; /* Add space between icon and text */
+    font-size: 18px; /* Adjust icon size */
+  }

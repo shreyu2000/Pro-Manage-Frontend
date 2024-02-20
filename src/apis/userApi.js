@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const backendUrl = import.meta.env.REACT_APP_BACKEND_URL;
-const backendUrl= "http://localhost:4000"
+const backendUrl = "http://localhost:4000";
+
 // Register a new user
 export const registerUser = async ({ name, email, password }) => {
     try {
@@ -10,10 +10,17 @@ export const registerUser = async ({ name, email, password }) => {
             email,
             password
         });
+        
+        // Extract the token from the response
+        console.log(response.data.data.token); // Log the entire response data
+        const { token } = response.data.data;
+
+        // Store the token in localStorage
+        localStorage.setItem('accessToken', token);
 
         return { data: response.data, error: null };
     } catch (error) {
-        return { data: null, error: error.response?.data?.message || "Something went wrong." };
+        return { data: null, error: error.response?.data?.data?.message || "Something went wrong." };
     }
 };
 
@@ -25,19 +32,35 @@ export const loginUser = async ({ email, password }) => {
             password
         });
 
+        console.log(response.data); // Log the entire response data
+        console.log(response.data.data.token); // Log the token directly
+
+        // Extract the token from the response
+        const { token } = response.data.data;
+
+        // Store the token in localStorage
+        localStorage.setItem('accessToken', token);
+
         return { data: response.data, error: null };
     } catch (error) {
+        console.error('Login error:', error); // Log any login errors
         return { data: null, error: error.response?.data?.message || "Something went wrong." };
     }
 };
-
 // Update user settings
 export const updateUserSettings = async ({ newName, oldPassword, newPassword }) => {
     try {
+        const token = localStorage.getItem('accessToken'); // Get the access token from localStorage
+        
+        
         const response = await axios.put(`${backendUrl}/api/v1/users/settings`, {
             newName,
             oldPassword,
             newPassword
+        }, {
+            headers: {
+                Authorization:`Bearer ${token}`
+            }
         });
 
         return { data: response.data, error: null };
@@ -46,3 +69,20 @@ export const updateUserSettings = async ({ newName, oldPassword, newPassword }) 
     }
 };
 
+// Fetch user data
+export const fetchUserData = async () => {
+    try {
+        const token = localStorage.getItem('accessToken'); // Get the access token from localStorage
+        console.log(token);
+        
+        const response = await axios.get(`${backendUrl}/api/v1/users/user`, {
+            headers: {
+                Authorization:`Bearer ${token}`
+            }
+        });
+
+        return { data: response.data, error: null };
+    } catch (error) {
+        return { data: null, error: error.response?.data?.message || "Something went wrong." };
+    }
+};
