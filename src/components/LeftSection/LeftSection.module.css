@@ -7,12 +7,13 @@
     justify-content: flex-start;
     font-size: 18px;
     font-weight: 500;
+   
   }
   .logo {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 1.5rem;
     margin-bottom: 20px;
     font-size: 1.3rem;
     color: #000000;
@@ -33,11 +34,9 @@
 .navItem {
     padding: 20px;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
     gap: 1.5rem;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+   
 
   }
   
@@ -48,15 +47,20 @@
   }
   .logoutButton {
     margin-top: auto; /* Push logout button to the bottom */
-    padding: 15px;
+    padding: 10px;
     cursor: pointer;
     font-size: 18px;
     color: #cf3636; /* Logout icon and text color */
     background-color: transparent; /* Remove background color */
     border: none; /* Remove border */
-    margin-bottom: 20px;
+    margin-bottom: 2rem;
+     display: flex;
+     gap:14px;
+    justify-content: center;
+    /* align-items:center; */
+    /* margin-left: 1rem; */
   }
   .icon {
-    margin-right: 10px; /* Add space between icon and text */
+    margin-right: 12px; /* Add space between icon and text */
     font-size: 18px; /* Adjust icon size */
   }

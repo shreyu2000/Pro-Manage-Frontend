@@ -4,7 +4,7 @@ import { faChalkboard, faDatabase, faCog, faSignOutAlt } from '@fortawesome/free
 import styles from './LeftSection.module.css'; // Import the CSS module
 import logo from '../../assets/icons/codesandbox.png'
 
-const LeftSection = ({ activeLink, setActiveLink, handleLogout }) => {
+const LeftSection = ({ activeLink, setActiveLink, openLogoutPopup }) => {
   return (
     <nav className={styles.leftSection}>
       <div className={styles.logo}><img src={logo}/>Pro Manage</div>
@@ -19,7 +19,7 @@ const LeftSection = ({ activeLink, setActiveLink, handleLogout }) => {
           <FontAwesomeIcon icon={faCog} className={styles.icon} /> Settings
         </li>
       </ul>
-      <button className={styles.logoutButton} onClick={handleLogout}>
+      <button className={styles.logoutButton} onClick={openLogoutPopup}>
         <FontAwesomeIcon icon={faSignOutAlt}  /> Log out
       </button>
     </nav>
