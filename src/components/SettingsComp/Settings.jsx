@@ -23,7 +23,7 @@ const Settings = () => {
         console.log(userData);
         setFormData(prevData => ({
           ...prevData,
-          name: userData.data.data.name, // Update name with the user's name fetched from the API
+          name: userData.name, // Update name with the user's name fetched from the API
         }));
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -174,7 +174,7 @@ const Settings = () => {
     <div className={styles.container}>
       <Toaster /> {/* Toaster component to display toast messages */}
       <h2 className={styles.heading}>Settings</h2>
-      {/* {error && <p className={styles.error}>{error}</p>} */}
+      {error && <p className={styles.error}>{error}</p>}
       <form onSubmit={handleSubmit}>
         <div className={styles.formGroup}>
           <FontAwesomeIcon icon={faUser} className={styles.icon} />

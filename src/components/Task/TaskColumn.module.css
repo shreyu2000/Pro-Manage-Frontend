@@ -1,0 +1,56 @@
+.taskColumn {
+  background-color: #eef2f5;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-right: 20px; /* Adjust margin as needed */
+  flex: 1;
+  min-width: 340px;
+  max-height: auto;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  font-family: "Poppins";
+}
+
+.columnHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  border: 1px solid;
+}
+
+.columnHeader h3 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.taskList {
+  padding: 10px;
+  max-height: 300px; /* Adjust max-height as needed for scrolling */
+  overflow-y: auto; /* Enable vertical scrolling if tasks exceed max-height */
+  border: 1px solid;
+}
+
+.taskList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.taskList::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.taskList::-webkit-scrollbar-track {
+  background-color: #f4f4f4;
+}
+
+.columnHeader button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.collapseIcon {
+  cursor: pointer;
+}

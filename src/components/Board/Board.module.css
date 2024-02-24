@@ -1,0 +1,93 @@
+.boardcontainer{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 1rem;
+    font-family: "Poppins";
+    /* border: 1px solid black; */
+}
+
+.boardheader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border: 1px solid black;/ */
+}
+.boardheader h2{
+    font-weight: 600;
+    font-size: 22px;
+}
+
+.boardheader p{
+    color:  #707070;
+    font-size: 18px;
+}
+
+.boardheading{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border: 1px solid black; */
+}
+.boardheading h2{
+    font-weight: 500;
+}
+
+.filterButton {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    /* right: 1rem; */
+  }
+  
+  .arrowDown {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #000;
+  }
+  
+
+  .columncontainer {
+    border: 1px solid black;
+    display: flex;
+    flex: 1; /* Make the columns take equal space */
+    overflow-x: auto; /* Enable horizontal scrolling */
+  }
+  
+  .column {
+    flex: 1; /* Each column takes equal space */
+    background-color: #EEF2F5;
+    padding: 10px;
+    margin: 0 10px; /* Add space between columns */
+    min-width: 300px; /* Set a minimum width for each column */
+  }
+  
+  .column-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  /* Styling for the scrollbar */
+.columncontainer::-webkit-scrollbar {
+    height: 10px; /* Height of the scrollbar */
+    border-radius: 10px; /* Border radius of the scrollbar */
+  }
+  
+  /* Track */
+  .columncontainer::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color of the scrollbar track */
+  }
+  
+  /* Handle */
+  .columncontainer::-webkit-scrollbar-thumb {
+    background: #9cb7c5; /* Color of the scrollbar handle */
+    border-radius: 10px; /* Border radius of the scrollbar handle */
+  }

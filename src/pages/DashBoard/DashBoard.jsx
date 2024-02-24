@@ -21,11 +21,20 @@ const Dashboard = () => {
 
   const openLogoutPopup = () => {
     setShowLogoutPopup(true);
-   
+    document.body.style.overflow = "hidden"; // Disable scrolling while the overlay is open
   };
 
   const closeLogoutPopup = () => {
     setShowLogoutPopup(false);
+    document.body.style.overflow = ""; // Enable scrolling when the overlay is closed
+  };
+
+  const stopPropagation = (e) => {
+    e.stopPropagation();
+  };
+
+  const handleOverlayClick = () => {
+    // Do not close the popup when clicking outside of it
   };
 
   return (
@@ -37,25 +46,27 @@ const Dashboard = () => {
       />
       <RightSection activeLink={activeLink} />
       {showLogoutPopup && (
-        <div className={styles.popup}>
-          <div className={styles.popupContent}>
-            <p>Are you sure you want to Logout?</p>
-            <div className={styles.buttons}>
-              <button
-                onClick={() => {
-                  handleLogout();
-                  closeLogoutPopup();
-                }}
-                style={{ backgroundColor: "#17A2B8", color: "white" }}
-              >
-                Yes, Logout
-              </button>
-              <button
-                onClick={closeLogoutPopup}
-                style={{ border: "2px solid #CF3636", color: "#CF3636" ,background:"transparent" }}
-              >
-                Cancel
-              </button>
+        <div className={styles.overlay} onClick={handleOverlayClick}>
+          <div className={styles.popup} onClick={stopPropagation}>
+            <div className={styles.popupContent}>
+              <p>Are you sure you want to Logout?</p>
+              <div className={styles.buttons}>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    closeLogoutPopup();
+                  }}
+                  style={{ backgroundColor: "#17A2B8", color: "white" }}
+                >
+                  Yes, Logout
+                </button>
+                <button
+                  onClick={closeLogoutPopup}
+                  style={{ border: "1px solid #CF3636", color: "#CF3636", background: "transparent" }}
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
           </div>
         </div>

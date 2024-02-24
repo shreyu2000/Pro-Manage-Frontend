@@ -8,7 +8,6 @@ const LoginPage = () => {
   return (
     <div className={styles.loginPage}>
       <div className={styles.leftSection}>
-        {/* <img src={Back}/> */}
         <img src={Art} alt="Welcome" />
         <h2>Welcome aboard, my friend</h2>
         <p>Just a couple of clicks and we start</p>

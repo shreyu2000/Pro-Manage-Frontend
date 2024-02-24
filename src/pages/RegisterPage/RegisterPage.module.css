@@ -16,8 +16,7 @@
   justify-content: center;
   align-items: center;
   font-family: 'Open Sans', sans-serif;
-  /* Set explicit height, redundant due to parent's 'height: 100vh' */
-  /* height: 100%;  */
+
 }
 
 .leftSection h2 {
@@ -37,7 +36,7 @@
 
 .rightSection {
   width: 35vw;
-  padding:0 20px;
+  /* padding:0 20px; */
   /* height: 100vh; Redundant due to parent's 'height: 100vh' */
   /* height: 100%; */
 

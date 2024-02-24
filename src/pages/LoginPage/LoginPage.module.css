@@ -4,7 +4,7 @@
 
 .loginPage {
   display: flex;
-  justify-content: center;
+  justify-content: center;gap: 0px;
   height: 100vh; /* Use viewport height directly */
   overflow: hidden; /* Prevent any potential scrolling */
   margin: 0; /* Remove default margin for full-screen coverage */
@@ -40,7 +40,6 @@
 
 .rightSection {
   width: 35vw;
-  padding: 0 20px;
   /* height: 100vh; Redundant due to parent's 'height: 100vh' */
   font-family: 'Open Sans', sans-serif;
   margin: 0;

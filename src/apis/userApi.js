@@ -14,7 +14,6 @@ export const registerUser = async ({ name, email, password }) => {
         // Extract the token from the response
         console.log(response.data.data.token); // Log the entire response data
         const { token } = response.data.data;
-
         // Store the token in localStorage
         localStorage.setItem('accessToken', token);
 
@@ -32,8 +31,8 @@ export const loginUser = async ({ email, password }) => {
             password
         });
 
-        console.log(response.data); // Log the entire response data
-        console.log(response.data.data.token); // Log the token directly
+        // console.log(response.data); // Log the entire response data
+        // console.log(response.data.data.token); // Log the token directly
 
         // Extract the token from the response
         const { token } = response.data.data;
@@ -63,7 +62,7 @@ export const updateUserSettings = async ({ newName, oldPassword, newPassword }) 
             }
         });
 
-        return { data: response.data, error: null };
+        return response.data?.data
     } catch (error) {
         return { data: null, error: error.response?.data?.message || "Something went wrong." };
     }
@@ -81,7 +80,7 @@ export const fetchUserData = async () => {
             }
         });
 
-        return { data: response.data, error: null };
+        return response.data?.data
     } catch (error) {
         return { data: null, error: error.response?.data?.message || "Something went wrong." };
     }

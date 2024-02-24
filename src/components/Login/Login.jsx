@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faLock, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEnvelope,
+  faLock,
+  faEye,
+  faEyeSlash,
+} from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
-import { loginUser } from "../../apis/userApi";
+import { useUserContext } from "../../utils/userContext"; // Import userContext without .jsx extension
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login } = useUserContext(); // Access loginUser function from userContext
 
   const [formData, setFormData] = useState({
     email: "",
@@ -20,22 +26,21 @@ const Login = () => {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  const { email, password } = formData;
-  try {
-    // Call the loginUser function from the API with an object containing email and password
-    const { data } = await loginUser({ email, password });
-    // If login is successful, redirect to home page
-    if(data.success){
-      console.log("User Logged in ", data);
-    navigate("/dashboard");
+    e.preventDefault();
+    const { email, password } = formData;
+    try {
+      // Call the loginUser function from the userContext
+      const response = await login({ email, password });
+      // If login is successful, redirect to home page
+      if (response) {
+        console.log("User Logged in ", response);
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      // If login fails, set error message
+      setError(error.message);
     }
-   
-  } catch (error) {
-    // If login fails, set error message
-    setError(error.message);
-  }
-};
+  };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -80,7 +85,10 @@ const Login = () => {
         </button>
       </form>
       <p className={styles.account}>Have no account yet?</p>
-      <button className={styles.registerButton} onClick={() => navigate("/register")}>
+      <button
+        className={styles.registerButton}
+        onClick={() => navigate("/register")}
+      >
         Register
       </button>
     </div>
