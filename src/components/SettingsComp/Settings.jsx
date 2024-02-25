@@ -44,7 +44,7 @@ const Settings = () => {
   try {
     const updateData = {};
     if (name) {
-      updateData.name = name;
+      updateData.newName = name;
     }
     if (oldPassword && newPassword) {
       updateData.oldPassword = oldPassword;

@@ -3,17 +3,19 @@ import LeftSection from "../../components/LeftSection/LeftSection.jsx"; // Impor
 import RightSection from "../../components/RightSection/RightSection.jsx"; // Import the RightSection component
 import styles from "./Dashboard.module.css"; // Import the Dashboard CSS module
 import { useNavigate } from "react-router-dom";
+import { useUserContext } from "../../utils/userContext"; // Import the useUserContext hook
 
 const Dashboard = () => {
   const [activeLink, setActiveLink] = useState("board"); // Default active link is 'board'
   const [showLogoutPopup, setShowLogoutPopup] = useState(false); // State to control the logout confirmation popup
   const navigate = useNavigate();
+  const { logout } = useUserContext(); // Accessing logout function from userContext
 
   const handleLogout = () => {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
       // Clear authentication tokens or user data from localStorage
-      localStorage.removeItem("accessToken");
+      logout(); // Call the logout function from userContext
       // Redirect the user to the login page or perform any other necessary actions
       navigate("/");
     }

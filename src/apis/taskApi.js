@@ -2,10 +2,21 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:4000/api/v1/tasks';
 
+// Function to retrieve access token from localStorage
+const getAccessToken = () => {
+  return localStorage.getItem('accessToken');
+};
+
 // Create a new task
 const createTask = async (taskData) => {
   try {
-    const response = await axios.post(`${API_URL}`, taskData);
+    const accessToken = getAccessToken();
+    const response = await axios.post(`${API_URL}`, taskData, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
+    console.log(response);
     return response.data;
   } catch (error) {
     console.log('Error creating task:', error);
@@ -16,7 +27,12 @@ const createTask = async (taskData) => {
 // Get all tasks for a user
 const getAllTasks = async () => {
   try {
-    const response = await axios.get(`${API_URL}`);
+    const accessToken = getAccessToken();
+    const response = await axios.get(`${API_URL}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
     return response.data;
   } catch (error) {
     console.error('Error fetching tasks:', error);
@@ -27,7 +43,12 @@ const getAllTasks = async () => {
 // Update a task
 const updateTask = async (taskId, taskData) => {
   try {
-    const response = await axios.put(`${API_URL}/${taskId}`, taskData);
+    const accessToken = getAccessToken();
+    const response = await axios.put(`${API_URL}/${taskId}`, taskData, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
     return response.data;
   } catch (error) {
     console.error('Error updating task:', error);
@@ -38,7 +59,12 @@ const updateTask = async (taskId, taskData) => {
 // Delete a task
 const deleteTask = async (taskId) => {
   try {
-    const response = await axios.delete(`${API_URL}/${taskId}`);
+    const accessToken = getAccessToken();
+    const response = await axios.delete(`${API_URL}/${taskId}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
     return response.data;
   } catch (error) {
     console.error('Error deleting task:', error);
@@ -49,7 +75,12 @@ const deleteTask = async (taskId) => {
 // Update column state of a task
 const updateTaskColumn = async (taskId, columnData) => {
   try {
-    const response = await axios.put(`${API_URL}/${taskId}/column`, columnData);
+    const accessToken = getAccessToken();
+    const response = await axios.put(`${API_URL}/${taskId}/column`, columnData, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
     return response.data;
   } catch (error) {
     console.error('Error updating task column state:', error);

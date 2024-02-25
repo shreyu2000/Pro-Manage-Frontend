@@ -3,7 +3,7 @@ import { fetchUserData } from '../../apis/userApi';
 import styles from './Board.module.css';
 import FilterOptions from '../Filter/FilterOptions';
 import TaskColumn from '../Task/TaskColumn';
-import { getAllTasks, createTask } from '../../apis/taskApi'; // Import the task API functions
+import { getAllTasks} from '../../apis/taskApi'; // Import the task API functions
 
 const Board = () => {
   const [name, setName] = useState('User');
@@ -12,6 +12,7 @@ const Board = () => {
   const [selectedFilter, setSelectedFilter] = useState('thisWeek');
   const [showFilterOptions, setShowFilterOptions] = useState(false);
   const [tasks, setTasks] = useState([]); // State to store tasks
+  const [loading, setLoading] = useState(false); // State to indicate loading state
 
   useEffect(() => {
     const fetchUserSettings = async () => {
@@ -30,23 +31,22 @@ const Board = () => {
   }, []);
 
   useEffect(() => {
-    // Fetch tasks when component mounts
     const fetchTasks = async () => {
+      setLoading(true); // Set loading to true before fetching tasks
       try {
         const tasksData = await getAllTasks();
         setTasks(tasksData.data); // Update tasks state with fetched tasks
       } catch (error) {
         console.error('Error fetching tasks:', error);
         setError('Failed to fetch tasks');
+      } finally {
+        setLoading(false); // Set loading to false after fetching tasks
       }
     };
     fetchTasks();
   }, []);
 
   const handleFilter = (selectedFilter) => {
-    // Call backend API to filter data based on the selected filter
-    // Example: fetchTasks(selectedFilter);
-    console.log('Filter selected:', selectedFilter);
     setSelectedFilter(selectedFilter);
     setShowFilterOptions(false); // Close the popup after selecting an option
   };
@@ -55,17 +55,11 @@ const Board = () => {
     setShowFilterOptions(!showFilterOptions);
   };
 
-  const handleSaveTask = async (taskData) => {
-    try {
-      await createTask(taskData);
-      // After saving the task, update the tasks list by fetching them again
-      const updatedTasksData = await getAllTasks();
-      setTasks(updatedTasksData.data);
-    } catch (error) {
-      console.error('Error creating task:', error);
-      // Handle error
-    }
-  };
+  // Filter tasks based on the selected column
+  const backlogTasks = tasks.filter(task => task.column === 'Backlog');
+  const todoTasks = tasks.filter(task => task.column === 'To Do');
+  const inProgressTasks = tasks.filter(task => task.column === 'In Progress');
+  const doneTasks = tasks.filter(task => task.column === 'Done');
 
   return (
     <div className={styles.boardcontainer}>
@@ -86,11 +80,14 @@ const Board = () => {
         </div>
       </div>
       <div className={styles.columncontainer}>
-        <TaskColumn title="Backlog" tasks={tasks.filter(task => task.column === 'Backlog')} />
-        <TaskColumn title="To Do" tasks={tasks.filter(task => task.column === 'To Do')} createTask={handleSaveTask} isToDo={true} />
-        <TaskColumn title="In Progress" tasks={tasks.filter(task => task.column === 'In Progress')} />
-        <TaskColumn title="Done" tasks={tasks.filter(task => task.column === 'Done')} />
+        {/* Render TaskColumns with filtered tasks */}
+        <TaskColumn title="Backlog" tasks={backlogTasks} />
+        <TaskColumn title="To Do" tasks={todoTasks} isToDo={true} />
+        <TaskColumn title="In Progress" tasks={inProgressTasks} />
+        <TaskColumn title="Done" tasks={doneTasks} />
       </div>
+      {loading && <div>Loading...</div>} {/* Render loading indicator */}
+      {error && <div>Error: {error}</div>} {/* Render error message */}
     </div>
   );
 };

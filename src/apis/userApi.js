@@ -40,7 +40,7 @@ export const loginUser = async ({ email, password }) => {
         // Store the token in localStorage
         localStorage.setItem('accessToken', token);
 
-        return { data: response.data, error: null };
+        return { data: response.data , error: null };
     } catch (error) {
         console.error('Login error:', error); // Log any login errors
         return { data: null, error: error.response?.data?.message || "Something went wrong." };
@@ -49,9 +49,7 @@ export const loginUser = async ({ email, password }) => {
 // Update user settings
 export const updateUserSettings = async ({ newName, oldPassword, newPassword }) => {
     try {
-        const token = localStorage.getItem('accessToken'); // Get the access token from localStorage
-        
-        
+        const token = localStorage.getItem('accessToken'); // Get the access token from localStorage    
         const response = await axios.put(`${backendUrl}/api/v1/users/settings`, {
             newName,
             oldPassword,

@@ -43,7 +43,7 @@ export const UserProvider = ({ children }) => {
 
   const updateSettings = async ({ newName, oldPassword, newPassword }) => {
     try {
-      const response = await updateUserSettings({ newName, oldPassword, newPassword });
+      const response = await updateUserSettings({ name: newName, oldPassword, newPassword });
       return response;
     } catch (error) {
       setError(error.message || 'Something went wrong while updating settings');

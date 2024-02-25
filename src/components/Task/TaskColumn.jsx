@@ -4,7 +4,7 @@ import TaskModal from './TaskModal'; // Assuming you have a TaskModal component
 import styles from './TaskColumn.module.css';
 import collapseicon from '../../assets/icons/collapseall.svg';
 
-const TaskColumn = ({ title, tasks, isToDo, createTask }) => {
+const TaskColumn = ({ title, tasks, isToDo}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -37,7 +37,7 @@ const TaskColumn = ({ title, tasks, isToDo, createTask }) => {
           <TaskCard key={task.id} task={task} />
         ))}
       </div>
-      {isModalOpen && <TaskModal onClose={closeModal} onSave={createTask} />}
+      {isModalOpen && <TaskModal onClose={closeModal} />}
     </div>
   );
 };

@@ -3,22 +3,28 @@ import styles from "./TaskModal.module.css"; // Import CSS file for styling
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import deleteicon from "../../assets/icons/Delete.svg";
+import { useTaskContext } from "../../utils/taskContext"; // Import useTaskContext hook
 
-const TaskModal = ({ onClose, onSave }) => {
+const TaskModal = ({ onClose }) => {
   const [title, setTitle] = useState("");
   const [priority, setPriority] = useState("");
   const [dueDate, setDueDate] = useState(null);
   const [checklist, setChecklist] = useState([]);
   const [checkedChecklist, setCheckedChecklist] = useState([]);
+  const { createTask } = useTaskContext(); // Use the createTask function from the TaskContext
 
   const handleAddChecklistItem = () => {
     setChecklist([...checklist, ""]);
+    setCheckedChecklist([...checkedChecklist, false]); // Add a corresponding entry in checkedChecklist
   };
 
   const handleDeleteChecklistItem = (index) => {
     const updatedChecklist = [...checklist];
     updatedChecklist.splice(index, 1);
     setChecklist(updatedChecklist);
+    const updatedCheckedChecklist = [...checkedChecklist];
+    updatedCheckedChecklist.splice(index, 1);
+    setCheckedChecklist(updatedCheckedChecklist);
   };
 
   const handleCheckItem = (index) => {
@@ -27,25 +33,37 @@ const TaskModal = ({ onClose, onSave }) => {
     setCheckedChecklist(updatedCheckedChecklist);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    
     // Create task object with input values
     const taskData = {
       title,
       priority,
       dueDate,
-      checklist,
+      checklist: checklist.map((item, index) => ({
+        title: item,
+        done: checkedChecklist[index]
+      })),
     };
-    // Call onSave function from props to save the task
-    onSave(taskData);
-    // Close the modal
-    onClose();
+  
+    console.log('Submitting taskData:', taskData); // Log the taskData object
+  
+    try {
+      // Call createTask function from TaskContext to save the task
+      await createTask(taskData);
+      onClose(); // Close the modal after creating the task
+    } catch (error) {
+      console.error('Error creating task:', error);
+      // Handle error
+    }
   };
+  
 
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modal}>
-        <form>
+        <form onSubmit={handleSubmit}>
           {/* Input fields for task details */}
           <div className={styles.formGroupTitle}>
             <label htmlFor="title">Title*</label>
@@ -156,7 +174,7 @@ const TaskModal = ({ onClose, onSave }) => {
             <button type="button" onClick={onClose} className={styles.cancelButton}>
               Cancel
             </button>
-            <button onClick = {handleSubmit} className={styles.saveButton} >
+            <button type="submit" className={styles.saveButton}>
               Save
             </button>
           </div>
