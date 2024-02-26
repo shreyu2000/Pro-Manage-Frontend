@@ -8,8 +8,10 @@ import { formatDate } from "../../utils/DateFormat";
 import TaskModal from "./TaskModal"; // Import the TaskModal component
 import PopupMenu from "./PopupMenu.jsx";
 import DeleteConfirmationPopup from "./DeleteConfirmationPopup.jsx";
+import { toast } from "react-toastify"; // Import toast from react-toastify
+import "react-toastify/dist/ReactToastify.css";
 
-const TaskCard = ({ task }) => {
+const TaskCard = ({ task, isAllChecklistsCollapsed, onIndividualCollapse }) => {
   const [isPopupMenuOpen, setIsPopupMenuOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
@@ -17,9 +19,15 @@ const TaskCard = ({ task }) => {
   const { deleteTask, updateTaskColumn, updateTask } = useTaskContext();
   const popupMenuRef = useRef(null);
   const [isChecklistCollapsed, setIsChecklistCollapsed] = useState(false);
+  const [editedTask, setEditedTask] = useState(task);
+
+  useEffect(() => {
+    setIsChecklistCollapsed(isAllChecklistsCollapsed);
+  }, [isAllChecklistsCollapsed]);
 
   const handleCollapseToggle = () => {
     setIsChecklistCollapsed(!isChecklistCollapsed);
+    onIndividualCollapse(); // Call the callback function to update the global collapse state
   };
 
   useEffect(() => {
@@ -38,21 +46,13 @@ const TaskCard = ({ task }) => {
     };
   }, []);
 
+  //popupmenu
   const openPopupMenu = () => {
     setIsPopupMenuOpen(true);
   };
 
   const closePopupMenu = () => {
     setIsPopupMenuOpen(false);
-  };
-
-  const openEditModal = () => {
-    setIsEditModalOpen(true);
-    closePopupMenu();
-  };
-
-  const closeEditModal = () => {
-    setIsEditModalOpen(false);
   };
 
   const openDeleteConfirmation = () => {
@@ -64,11 +64,13 @@ const TaskCard = ({ task }) => {
     setIsDeleteConfirmationOpen(false);
   };
 
+  //delete task
   const handleDelete = async () => {
     await deleteTask(task._id);
     closeDeleteConfirmation();
   };
 
+  //column update
   const handleColumnUpdate = async (column) => {
     try {
       await updateTaskColumn(task._id, { column });
@@ -77,13 +79,45 @@ const TaskCard = ({ task }) => {
     }
   };
 
-  const handleEditTask = async (updatedTaskData) => {
+  //edit
+  const handleEdit = () => {
+    setIsEditModalOpen(true);
+    setEditedTask(task);
+  };
+
+  // Function to handle saving the edited task
+  const handleSaveEdit = async (updatedTaskData) => {
     try {
       await updateTask(task._id, updatedTaskData);
       setIsEditModalOpen(false);
+      setEditedTask(updatedTaskData); // Update editedTask with the edited data
     } catch (error) {
       console.error("Error updating task:", error);
     }
+  };
+
+  const handleShare = () => {
+    const taskLink = generateTaskLink(task._id); // Generate link for the task
+    copyToClipboard(taskLink);
+    // Show toast message
+    toast.success("Link copied", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
+  const generateTaskLink = (taskId) => {
+    // Replace 'yourwebsite.com' with your actual website domain
+    return `https://yourwebsite.com/task/${taskId}`;
+  };
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
   };
 
   const getPriorityColor = (priority) => {
@@ -103,12 +137,12 @@ const TaskCard = ({ task }) => {
   const isTaskCompleted = task.column === "DONE";
 
   const getDateButtonStyle = () => {
-    if (isDueDatePassed) {
-      return { backgroundColor: "#CF3636", color: "#fff" }; // Change color if due date has passed
-    } else if (isTaskCompleted) {
-      return { backgroundColor: "#63C05B", color: "#fff" }; // Change color if task is completed
+    if (isTaskCompleted) {
+      return { backgroundColor: "#63C05B", color: "#fff" }; // Completed tasks have this style
+    } else if (isDueDatePassed) {
+      return { backgroundColor: "#CF3636", color: "#fff" }; // Overdue tasks have this style
     } else {
-      return {}; // Default style
+      return {}; // Default style for other cases
     }
   };
 
@@ -129,9 +163,9 @@ const TaskCard = ({ task }) => {
           {isPopupMenuOpen && (
             <div ref={popupMenuRef}>
               <PopupMenu
-                onEdit={openEditModal}
+                onEdit={handleEdit}
                 onDelete={openDeleteConfirmation}
-                onShare={() => {}}
+                onShare={handleShare}
                 onClose={closePopupMenu}
               />
             </div>
@@ -143,7 +177,7 @@ const TaskCard = ({ task }) => {
         Checklist ({task.checklist.filter((item) => item.done).length}/
         {task.checklist.length})
         <div className={styles.collapseIcon} onClick={handleCollapseToggle}>
-          {isChecklistCollapsed ? (
+          {isChecklistCollapsed || isAllChecklistsCollapsed ? (
             <img src={collapseup} alt="Collapse" />
           ) : (
             <img src={collapsedown} alt="Expand" />
@@ -152,12 +186,14 @@ const TaskCard = ({ task }) => {
       </div>
       <div className={styles.checklist}>
         {!isChecklistCollapsed &&
+          !isAllChecklistsCollapsed &&
           task.checklist.map((item, index) => (
             <div key={index} className={styles.checklistItem}>
               <input
                 type="checkbox"
                 checked={item.done}
                 className={styles.checkbox}
+                readOnly
               />
               <span className={styles.checklistTitle}>{item.title}</span>
             </div>
@@ -190,9 +226,9 @@ const TaskCard = ({ task }) => {
       </div>
       {isEditModalOpen && (
         <TaskModal
-          task={task}
-          onClose={closeEditModal}
-          onSave={handleEditTask}
+          task={editedTask} // Pass the edited task data to the modal
+          onClose={() => setIsEditModalOpen(false)}
+          onSave={handleSaveEdit}
         />
       )}
       {isDeleteConfirmationOpen && (

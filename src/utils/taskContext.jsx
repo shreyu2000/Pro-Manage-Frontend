@@ -33,9 +33,7 @@ export const TaskProvider = ({ children }) => {
       throw error;
     }
   };
-  // useEffect(() => {
-  //   getAllTasks();
-  // }, []);
+  
 
   const updateTask = async (taskId, taskData) => {
     try {

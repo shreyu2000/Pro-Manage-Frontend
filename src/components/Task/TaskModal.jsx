@@ -1,17 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./TaskModal.module.css"; // Import CSS file for styling
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import deleteicon from "../../assets/icons/Delete.svg";
 import { useTaskContext } from "../../utils/taskContext"; // Import useTaskContext hook
 
-const TaskModal = ({ onClose }) => {
+const TaskModal = ({ task, onClose , onSave}) => {
   const [title, setTitle] = useState("");
   const [priority, setPriority] = useState("");
   const [dueDate, setDueDate] = useState(null);
   const [checklist, setChecklist] = useState([]);
   const [checkedChecklist, setCheckedChecklist] = useState([]);
-  const { createTask } = useTaskContext(); // Use the createTask function from the TaskContext
+  const { createTask, updateTask } = useTaskContext(); // Use the createTask and updateTask functions from the TaskContext
+
+  // Effect to set modal fields with task data when task changes
+  useEffect(() => {
+    if (task) {
+      setTitle(task.title || "");
+      setPriority(task.priority || "");
+      setDueDate(task.dueDate || null);
+      setChecklist(task.checklist.map((item) => item.title || ""));
+      setCheckedChecklist(task.checklist.map((item) => item.done || false)); // Update this line
+    }
+  }, [task]);
+  
 
   const handleAddChecklistItem = () => {
     setChecklist([...checklist, ""]);
@@ -35,8 +47,8 @@ const TaskModal = ({ onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Create task object with input values
-    const taskData = {
+    // Updated task data
+    const updatedTaskData = {
       title,
       priority,
       dueDate,
@@ -46,22 +58,26 @@ const TaskModal = ({ onClose }) => {
       })),
     };
 
-    console.log("Submitting taskData:", taskData); // Log the taskData object
-
     try {
-      // Call createTask function from TaskContext to save the task
-      await createTask(taskData);
-      onClose(); // Close the modal after creating the task
+      if (task) {
+        // Call updateTask function from TaskContext to update the task
+        await updateTask(task._id, updatedTaskData);
+
+      } else {
+        // Call createTask function from TaskContext to create a new task
+        await createTask(updatedTaskData);
+      }
+      onSave(updatedTaskData); 
+      onClose(); // Close the modal after updating or creating the task
     } catch (error) {
-      console.error("Error creating task:", error);
-      // Handle error
+      console.error("Error:", error);
     }
   };
 
   const handleSetPriority = (priority) => {
     setPriority(priority.toUpperCase());
   };
-  
+
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modal}>

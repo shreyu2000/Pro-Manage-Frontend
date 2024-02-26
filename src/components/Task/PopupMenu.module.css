@@ -7,9 +7,8 @@
     border-radius: 5px;
     padding: 8px 15px; /* Adjust the padding */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
-    z-index: 0; /* Ensure it's above other content */
+     /* Ensure it's above other content */
     width: 100px;
-    
     font-family: "Poppins";
     display: flex;
     flex-direction: column;
@@ -22,6 +21,6 @@
     padding: 5px 5px;
     text-align: left;
     font-weight: 800px;
-   color: #000000;
-   font-size: 14px;
+    color: #000000;
+   font-size: 15px;
   }

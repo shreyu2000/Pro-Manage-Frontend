@@ -12,7 +12,7 @@ export const registerUser = async ({ name, email, password }) => {
         });
         
         // Extract the token from the response
-        console.log(response.data.data.token); // Log the entire response data
+        // console.log(response.data.data.token); // Log the entire response data
         const { token } = response.data.data;
         // Store the token in localStorage
         localStorage.setItem('accessToken', token);
@@ -70,7 +70,7 @@ export const updateUserSettings = async ({ newName, oldPassword, newPassword }) 
 export const fetchUserData = async () => {
     try {
         const token = localStorage.getItem('accessToken'); // Get the access token from localStorage
-        console.log(token);
+        // console.log(token);
         
         const response = await axios.get(`${backendUrl}/api/v1/users/user`, {
             headers: {

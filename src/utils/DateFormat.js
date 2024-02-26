@@ -25,5 +25,3 @@ const getDaySuffix = (day) => {
 };
 
 // Example usage:
-const formattedDate = formatDate("2024-02-25");
-console.log(formattedDate); // Output: Feb 25th

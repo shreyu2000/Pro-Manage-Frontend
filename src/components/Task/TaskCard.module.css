@@ -28,7 +28,7 @@
 
 .title {
   display: block;
-  font-weight: 400;
+  font-weight: 600;
   font-size: 18px;
 }
 
@@ -41,10 +41,10 @@
   position: relative;
 }
 
-
 .checklistStatus{
   display: flex;
   justify-content: space-between;
+  color: #000;
 }
 .checklist {
   display: flex;
@@ -71,10 +71,11 @@
 .checkbox{
   margin-left: 10px;
   border: 2px solid#E2E2E2;
-  border-radius: 10px;
+  border-radius: 20px;
   height: 18px;
   width: 18px;
 }
+
 
 .collapseIcon {
   cursor: pointer;
@@ -86,6 +87,7 @@
   align-items: center;
 
 }
+
 
 /* .dueDate {
   background-color: #eeecec;

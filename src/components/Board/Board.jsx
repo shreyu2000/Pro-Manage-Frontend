@@ -12,7 +12,7 @@ const Board = () => {
   const [selectedFilter, setSelectedFilter] = useState('thisWeek');
   const [showFilterOptions, setShowFilterOptions] = useState(false);
   const [tasks, setTasks] = useState([]); // State to store tasks
-  const [loading, setLoading] = useState(false); // State to indicate loading state
+  const [loading, setLoading] = useState(true); // State to indicate loading state
 
   useEffect(() => {
     const fetchUserSettings = async () => {
@@ -30,20 +30,35 @@ const Board = () => {
     setCurrentDate(formattedDate);
   }, []);
 
+  // useEffect(() => {
+  //   const fetchTasks = async () => {
+  //     setLoading(true); // Set loading to true before fetching tasks
+  //     try {
+  //       const tasksData = await getAllTasks();
+  //       setTasks(tasksData.data); // Update tasks state with fetched tasks
+  //       setLoading(false); 
+  //     } catch (error) {
+  //       console.error('Error fetching tasks:', error);
+  //       setError('Failed to fetch tasks');
+  //     }
+  //   };
+  //   fetchTasks();
+  // }, []);
   useEffect(() => {
     const fetchTasks = async () => {
-      setLoading(true); // Set loading to true before fetching tasks
       try {
         const tasksData = await getAllTasks();
         setTasks(tasksData.data); // Update tasks state with fetched tasks
-        setLoading(false); 
+        setLoading(false); // Set loading to false after fetching tasks
       } catch (error) {
         console.error('Error fetching tasks:', error);
         setError('Failed to fetch tasks');
+        setLoading(false); // Ensure loading state is set to false even if there's an error
       }
     };
     fetchTasks();
-  }, [tasks]);
+  }, [tasks]); // Empty dependency array, fetch tasks only once when component mounts
+
 
   const handleFilter = (selectedFilter) => {
     setSelectedFilter(selectedFilter);

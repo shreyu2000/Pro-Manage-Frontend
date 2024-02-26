@@ -55,7 +55,7 @@
   
 
   .columncontainer {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
     flex: 1; /* Make the columns take equal space */
     overflow-x: auto; /* Enable horizontal scrolling */
