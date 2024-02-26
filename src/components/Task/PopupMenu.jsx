@@ -1,3 +1,5 @@
+ import styles from './PopupMenu.module.css'
+
  const PopupMenu = ({ onEdit, onDelete, onShare, onClose }) => {
     return (
       <div className={styles.popupMenu}>
@@ -10,15 +12,7 @@
         >
           Edit
         </div>
-        <div
-          className={styles.option}
-          onClick={() => {
-            onDelete();
-            onClose();
-          }}
-        >
-          Delete
-        </div>
+        
         <div
           className={styles.option}
           onClick={() => {
@@ -28,8 +22,20 @@
         >
           Share
         </div>
+        <div
+          className={styles.option}
+          onClick={() => {
+            onDelete();
+            onClose();
+          }}
+          style={{color :"#CF3636"}}
+        >
+          Delete
+        </div>
       </div>
     );
   };
+
+  
 
   export default PopupMenu;

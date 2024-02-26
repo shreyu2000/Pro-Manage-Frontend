@@ -36,15 +36,14 @@ const Board = () => {
       try {
         const tasksData = await getAllTasks();
         setTasks(tasksData.data); // Update tasks state with fetched tasks
+        setLoading(false); 
       } catch (error) {
         console.error('Error fetching tasks:', error);
         setError('Failed to fetch tasks');
-      } finally {
-        setLoading(false); // Set loading to false after fetching tasks
       }
     };
     fetchTasks();
-  }, []);
+  }, [tasks]);
 
   const handleFilter = (selectedFilter) => {
     setSelectedFilter(selectedFilter);
@@ -56,10 +55,10 @@ const Board = () => {
   };
 
   // Filter tasks based on the selected column
-  const backlogTasks = tasks.filter(task => task.column === 'Backlog');
-  const todoTasks = tasks.filter(task => task.column === 'To Do');
-  const inProgressTasks = tasks.filter(task => task.column === 'In Progress');
-  const doneTasks = tasks.filter(task => task.column === 'Done');
+  const backlogTasks = tasks.filter(task => task.column === 'BACKLOG');
+  const todoTasks = tasks.filter(task => task.column === 'TO-DO');
+  const inProgressTasks = tasks.filter(task => task.column === 'PROGRESS');
+  const doneTasks = tasks.filter(task => task.column === 'DONE');
 
   return (
     <div className={styles.boardcontainer}>
@@ -82,11 +81,11 @@ const Board = () => {
       <div className={styles.columncontainer}>
         {/* Render TaskColumns with filtered tasks */}
         <TaskColumn title="Backlog" tasks={backlogTasks} />
-        <TaskColumn title="To Do" tasks={todoTasks} isToDo={true} />
-        <TaskColumn title="In Progress" tasks={inProgressTasks} />
+        <TaskColumn title="To do" tasks={todoTasks} isToDo={true} />
+        <TaskColumn title="In progress" tasks={inProgressTasks} />
         <TaskColumn title="Done" tasks={doneTasks} />
       </div>
-      {loading && <div>Loading...</div>} {/* Render loading indicator */}
+      {loading && <div>Loading...</div>} 
       {error && <div>Error: {error}</div>} {/* Render error message */}
     </div>
   );

@@ -1,96 +1,123 @@
-/* TaskCard.module.css */
-
 .taskCard {
-    background-color: white;
-    border-radius: 20px;
-    padding: 10px;
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .header {
-    display: flex;
-    justify-content: space-between;
-    border: 1px solid;
-    align-items: center;
-    font-size: 10px;
-  }
-  
-  .priorityDot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-right: 10px;
-  }
-  
-  .title {
-    display: block;
-    font-weight: 400;
-    border: 1px solid;
-    font-size: 18px;
-  }
-  
-  .popupMenuIcon {
-    margin-left: auto;
-    cursor: pointer;
-    font-size: 20px;
-    border: 1px solid;
-  }
-  
-  .popupMenu {
-    border: 1px solid;
-    position: relative;
-  }
-  .checklistStatus{
-    display: flex;
-    justify-content: space-between;
-  }
-  .checklist {
-    display: flex;
-    flex-direction: column;
-   
-    align-items: flex-start;
-    border: 1px solid;
-  }
-  
-  .checklistItem {
-    display: flex;
-    align-items: center;
-    margin-right: 10px;
-    border: 1px solid;
-  }
-  
-  .collapseIcon {
-    cursor: pointer;
-  }
-  
-  .cardbottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  
-  }
-  
-  .dueDate {
-    background-color: #eeecec;
-    border-radius: 15px;
+  background-color: white;
+  border-radius: 20px;
+  padding: 14px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  font-family: "Poppins";
+}
 
-  }
-  .columnchips{
-    font-size: 12px;
-  }
-  .columnButtons {
-    display: flex;
-    
-  }
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  color: #707070;
+
+}
+
+.priorityDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+
+}
+
+.title {
+  display: block;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.popupMenuIcon {
+  margin-left: auto;
+  cursor: pointer;
+  width: 20px;
+  text-align: center;
+  padding: 0;
+  position: relative;
+}
+
+
+.checklistStatus{
+  display: flex;
+  justify-content: space-between;
+}
+.checklist {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem 0;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+}
+.checklistTitle{
+  margin-left: 10px;
+}
+
+.checklistItem {
+  display: flex;
+  align-items: center;
+  border: 1px solid #E2E2E2;
+  width: 100%;
+  padding:12px 0 ;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 400;
+}
+.checkbox{
+  margin-left: 10px;
+  border: 2px solid#E2E2E2;
+  border-radius: 10px;
+  height: 18px;
+  width: 18px;
+}
+
+.collapseIcon {
+  cursor: pointer;
+}
+
+.cardbottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+/* .dueDate {
+  background-color: #eeecec;
+  border-radius: 8px;
+  margin-right: 10px;
+} */
+.formattedDate{
+  background-color: #DBDBDB;
+  font-size: 9px;
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 6px 10px;
+  color: #5A5A5A;
+}
+
+.columnchips{
+  font-size: 10px;
+}
+.columnButtons {
+  display: flex;
   
-  .columnButtons button {
-    background-color: #eeecec;
-    border: none;
-    padding: 5px 10px;
-    margin-left: 5px;
-    border-radius: 20px;
-    cursor: pointer;
-  }
-  
+}
+
+.columnButtons button {
+  background: #EEECEC; 
+  color: #767575;
+  font-weight: 500;
+  border: none;
+  padding: 5px 10px;
+  margin-left: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+

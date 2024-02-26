@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useEffect } from 'react';
 import {
   createTask as apiCreateTask,
   getAllTasks as apiGetAllTasks,
@@ -33,6 +33,9 @@ export const TaskProvider = ({ children }) => {
       throw error;
     }
   };
+  // useEffect(() => {
+  //   getAllTasks();
+  // }, []);
 
   const updateTask = async (taskId, taskData) => {
     try {
@@ -61,6 +64,7 @@ export const TaskProvider = ({ children }) => {
     }
   };
 
+  useEffect
   // Define the value of the context
   const value = {
     createTask,

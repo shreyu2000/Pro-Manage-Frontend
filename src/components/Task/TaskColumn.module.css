@@ -5,7 +5,7 @@
   margin-right: 20px; /* Adjust margin as needed */
   flex: 1;
   min-width: 340px;
-  max-height: auto;
+  max-height: 100vh;
   margin-bottom: 1rem;
   padding: 1rem;
   font-family: "Poppins";
@@ -16,7 +16,6 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
-  border: 1px solid;
 }
 
 .columnHeader h3 {
@@ -36,7 +35,7 @@
 }
 
 .taskList::-webkit-scrollbar-thumb {
-  background-color: #ccc;
+  background-color: #8DAAB9CC;
   border-radius: 4px;
 }
 

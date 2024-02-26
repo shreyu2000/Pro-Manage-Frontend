@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./TaskModal.module.css"; // Import CSS file for styling
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import deleteicon from "../../assets/icons/Delete.svg";
 import { useTaskContext } from "../../utils/taskContext"; // Import useTaskContext hook
 
@@ -35,7 +35,6 @@ const TaskModal = ({ onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
     // Create task object with input values
     const taskData = {
       title,
@@ -43,23 +42,26 @@ const TaskModal = ({ onClose }) => {
       dueDate,
       checklist: checklist.map((item, index) => ({
         title: item,
-        done: checkedChecklist[index]
+        done: checkedChecklist[index],
       })),
     };
-  
-    console.log('Submitting taskData:', taskData); // Log the taskData object
-  
+
+    console.log("Submitting taskData:", taskData); // Log the taskData object
+
     try {
       // Call createTask function from TaskContext to save the task
       await createTask(taskData);
       onClose(); // Close the modal after creating the task
     } catch (error) {
-      console.error('Error creating task:', error);
+      console.error("Error creating task:", error);
       // Handle error
     }
   };
-  
 
+  const handleSetPriority = (priority) => {
+    setPriority(priority.toUpperCase());
+  };
+  
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modal}>
@@ -81,9 +83,9 @@ const TaskModal = ({ onClose }) => {
             <div className={styles.priorityContainer}>
               <div
                 className={`${styles.priorityOption} ${
-                  priority === "High" ? styles.selected : ""
+                  priority === "HIGH" ? styles.selected : ""
                 }`}
-                onClick={() => setPriority("High")}
+                onClick={() => handleSetPriority("HIGH")}
               >
                 <span
                   className={styles.priorityDot}
@@ -93,9 +95,9 @@ const TaskModal = ({ onClose }) => {
               </div>
               <div
                 className={`${styles.priorityOption} ${
-                  priority === "Moderate" ? styles.selected : ""
+                  priority === "MODERATE" ? styles.selected : ""
                 }`}
-                onClick={() => setPriority("Moderate")}
+                onClick={() => handleSetPriority("MODERATE")}
               >
                 <span
                   className={styles.priorityDot}
@@ -105,9 +107,9 @@ const TaskModal = ({ onClose }) => {
               </div>
               <div
                 className={`${styles.priorityOption} ${
-                  priority === "Low" ? styles.selected : ""
+                  priority === "LOW" ? styles.selected : ""
                 }`}
-                onClick={() => setPriority("Low")}
+                onClick={() => handleSetPriority("LOW")}
               >
                 <span
                   className={styles.priorityDot}
@@ -171,7 +173,11 @@ const TaskModal = ({ onClose }) => {
                 className={styles.datePicker}
               />
             </div>
-            <button type="button" onClick={onClose} className={styles.cancelButton}>
+            <button
+              type="button"
+              onClick={onClose}
+              className={styles.cancelButton}
+            >
               Cancel
             </button>
             <button type="submit" className={styles.saveButton}>
