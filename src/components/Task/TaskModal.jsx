@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import deleteicon from "../../assets/icons/Delete.svg";
 import { useTaskContext } from "../../utils/taskContext"; // Import useTaskContext hook
 
-const TaskModal = ({ task, onClose , onSave}) => {
+const TaskModal = ({ task, onClose, onSave }) => {
   const [title, setTitle] = useState("");
   const [priority, setPriority] = useState("");
   const [dueDate, setDueDate] = useState(null);
@@ -23,7 +23,6 @@ const TaskModal = ({ task, onClose , onSave}) => {
       setCheckedChecklist(task.checklist.map((item) => item.done || false)); // Update this line
     }
   }, [task]);
-  
 
   const handleAddChecklistItem = () => {
     setChecklist([...checklist, ""]);
@@ -62,12 +61,11 @@ const TaskModal = ({ task, onClose , onSave}) => {
       if (task) {
         // Call updateTask function from TaskContext to update the task
         await updateTask(task._id, updatedTaskData);
-
+        onSave(updatedTaskData);
       } else {
         // Call createTask function from TaskContext to create a new task
         await createTask(updatedTaskData);
       }
-      onSave(updatedTaskData); 
       onClose(); // Close the modal after updating or creating the task
     } catch (error) {
       console.error("Error:", error);
@@ -84,7 +82,9 @@ const TaskModal = ({ task, onClose , onSave}) => {
         <form onSubmit={handleSubmit}>
           {/* Input fields for task details */}
           <div className={styles.formGroupTitle}>
-            <label htmlFor="title">Title*</label>
+            <label htmlFor="title">
+              Title<span className={styles.requiredStar}>*</span>
+            </label>
             <input
               type="text"
               id="title"
@@ -95,7 +95,9 @@ const TaskModal = ({ task, onClose , onSave}) => {
             />
           </div>
           <div className={styles.formGroupPriority}>
-            <label htmlFor="priority">Select Priority* </label>
+            <label htmlFor="priority">
+              Select Priority<span className={styles.requiredStar}>*</span>
+            </label>
             <div className={styles.priorityContainer}>
               <div
                 className={`${styles.priorityOption} ${
@@ -138,8 +140,11 @@ const TaskModal = ({ task, onClose , onSave}) => {
           {/* Checklist input fields */}
           <div className={styles.formGroupChecklist}>
             <label>
-              Checklist({checkedChecklist.filter(Boolean).length}/
-              {checklist.length})*
+              Checklist(
+              <span>
+                {checkedChecklist.filter(Boolean).length}/{checklist.length}
+              </span>
+              )<span className={styles.requiredStar}>*</span>
             </label>
             <div>
               {checklist.map((item, index) => (

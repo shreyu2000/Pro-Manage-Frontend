@@ -46,7 +46,7 @@ const TaskColumn = ({ title, tasks, isToDo }) => {
           />
         ))}
       </div>
-      {isModalOpen && <TaskModal onClose={closeModal} />}
+      {isModalOpen && <TaskModal onClose={closeModal}  />}
     </div>
   );
 };

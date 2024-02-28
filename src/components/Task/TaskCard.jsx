@@ -68,6 +68,15 @@ const TaskCard = ({ task, isAllChecklistsCollapsed, onIndividualCollapse }) => {
   const handleDelete = async () => {
     await deleteTask(task._id);
     closeDeleteConfirmation();
+    toast.success("Task Deleted", {
+      position: "top-left",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
 
   //column update
@@ -99,9 +108,10 @@ const TaskCard = ({ task, isAllChecklistsCollapsed, onIndividualCollapse }) => {
   const handleShare = () => {
     const taskLink = generateTaskLink(task._id); // Generate link for the task
     copyToClipboard(taskLink);
+    console.log(taskLink);
     // Show toast message
     toast.success("Link copied", {
-      position: "top-right",
+      position: "top-left",
       autoClose: 2000,
       hideProgressBar: true,
       closeOnClick: true,
@@ -113,11 +123,25 @@ const TaskCard = ({ task, isAllChecklistsCollapsed, onIndividualCollapse }) => {
 
   const generateTaskLink = (taskId) => {
     // Replace 'yourwebsite.com' with your actual website domain
-    return `https://yourwebsite.com/task/${taskId}`;
+    return ` http://localhost:5173/task/${taskId}`;
   };
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
+  };
+
+  //checkbox editable
+  const handleCheckboxChange = (index) => {
+    const updatedChecklist = [...task.checklist];
+    updatedChecklist[index].done = !updatedChecklist[index].done;
+    const updatedTask = { ...task, checklist: updatedChecklist };
+    setEditedTask(updatedTask); // Update editedTask state for UI rendering
+    // Update task state directly to persist the changes
+    updateTask(task._id, updatedTask).catch((error) => {
+      console.error("Error updating task:", error);
+      // If there's an error, revert the UI state to the previous state
+      setEditedTask(task);
+    });
   };
 
   const getPriorityColor = (priority) => {
@@ -133,7 +157,12 @@ const TaskCard = ({ task, isAllChecklistsCollapsed, onIndividualCollapse }) => {
     }
   };
 
-  const isDueDatePassed = new Date(task.dueDate) < new Date();
+  //dudate
+  const currentDate = new Date();
+  currentDate.setHours(0, 0, 0, 0); // Set hours, minutes, seconds, and milliseconds to zero for accurate date comparison
+
+  const isDueDatePassed = new Date(task.dueDate) < currentDate;
+
   const isTaskCompleted = task.column === "DONE";
 
   const getDateButtonStyle = () => {
@@ -193,7 +222,7 @@ const TaskCard = ({ task, isAllChecklistsCollapsed, onIndividualCollapse }) => {
                 type="checkbox"
                 checked={item.done}
                 className={styles.checkbox}
-                readOnly
+                onChange={() => handleCheckboxChange(index)}
               />
               <span className={styles.checklistTitle}>{item.title}</span>
             </div>

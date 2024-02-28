@@ -15,7 +15,8 @@
         
         <div
           className={styles.option}
-          onClick={() => {
+          onClick={(e)=>{
+            e.stopPropagation();
             onShare();
             onClose();
           }}

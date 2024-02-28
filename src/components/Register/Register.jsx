@@ -3,13 +3,15 @@ import { registerUser } from "../../apis/userApi.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
-  faEnvelope,
   faEye,
   faEyeSlash,
 } from "@fortawesome/free-regular-svg-icons"; // Importing lock icon from FontAwesome
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
 import styles from "./Register.module.css";
+import EmailIcon from '../../assets/icons/email.svg';
+import lockIcon from '../../assets/icons/lock.svg'
+import userIcon from '../../assets/icons/user.svg'
 
 const Register = () => {
   const navigate = useNavigate(); // Use useNavigate hook
@@ -71,7 +73,7 @@ const Register = () => {
       {error && <p>{error}</p>}
       <form onSubmit={handleSubmit}>
         <div className={styles.formGroup}>
-          <FontAwesomeIcon icon={faUser} className={styles.icon} />
+          <img src={userIcon} className={styles.icon} />
           <input
             type="text"
             name="name"
@@ -84,7 +86,7 @@ const Register = () => {
           <p className={styles.error}>{errors.name}</p>
         </div>
         <div className={styles.formGroup}>
-          <FontAwesomeIcon icon={faEnvelope} className={styles.icon} />
+          <img src={EmailIcon} className={styles.icon} />
           <input
             type="email"
             name="email"
@@ -97,7 +99,7 @@ const Register = () => {
           <p className={styles.error}>{errors.email}</p>
         </div>
         <div className={styles.formGroup}>
-          <FontAwesomeIcon icon={faLock} className={styles.icon} />
+          <img src={lockIcon} className={styles.icon} />
           <input
             type={showPassword ? "text" : "password"}
             name="password"
@@ -115,7 +117,8 @@ const Register = () => {
           <p className={styles.error}>{errors.password}</p>
         </div>
         <div className={styles.formGroup}>
-          <FontAwesomeIcon icon={faLock} className={styles.icon} />
+        <img src={lockIcon} className={styles.icon} />
+
           <input
             type={showConfirmPassword ? "text" : "password"}
             name="confirmPassword"

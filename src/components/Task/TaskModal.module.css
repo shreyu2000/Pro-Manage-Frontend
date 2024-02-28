@@ -16,7 +16,7 @@
     min-width: 300px;
     min-height: 500px;
     background-color: #fff;
-    padding: 20px;
+    padding: 25px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     position: relative;
@@ -30,7 +30,7 @@
 }
 
 .formGroupTitle label {
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 8px;
   font-size: 14px;
   color: #000;
@@ -45,7 +45,10 @@
   color: black;
   font-size: 14px;
   font-weight: 400;
-  border-radius: 2px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+ 
+
 }
 
 /* Priority */
@@ -60,10 +63,10 @@
 .formGroupPriority label {
   font-family: "Inter";
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   margin-right: 5px;
   color: #000;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.6px;
 }
 
 .priorityContainer {
@@ -103,12 +106,29 @@
   justify-content: space-between;
   margin-bottom: 0.5rem;
   font-family: "Inter";
-  
+  max-height: 280px;
+  overflow-y: scroll;
+}
+.formGroupChecklist label{
+  color: #000;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  font-family: "Inter";
+}
+
+
+.formGroupChecklist::-webkit-scrollbar {
+  width: 10px;
+}
+
+.formGroupChecklist::-webkit-scrollbar-thumb {
+  background-color: #8DAAB9CC;
+  border-radius: 4px;
 }
 
 .checklistitems {
   border: 1px solid #e2e2e2;
-  border-radius: 10px;
+  border-radius: 12px;
   display: flex;
   gap: 6px;
   padding: 8px;
@@ -127,14 +147,18 @@
 
 .checklistitems::placeholder {
   color: #828282;
-  font-size: 16px;
+  font-size: 14px;
 }
 
-.checklistItemContainer input[type="checkbox"] {
+.checklistitems input[type="checkbox"] {
   width: 18px;
   height: 18px;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 12px;
+  border: 1px solid #E2E2E2;
+}
+.checklistitems input[type="checkbox"]:checked {
+  background-color: #17a2b8 !important; /* Add !important to override other styles */
 }
 
 .deleteIcon {
@@ -149,27 +173,27 @@
   font-size: 16px;
   font-weight: 500;
   font-family: "Inter";
-  border: 1px solid;
 }
-
+.calendarContainer{
+  font-family: "Poppins";
+  margin-right: 3rem;
+}
 .datePicker {
   background: transparent;
-  border: none;
   outline: none;
   font-size: 16px;
   text-align: center;
   border: 1px solid #e2e2e2;
   border-radius: 12px;
-  padding: 10px;
+  height: 45px;
+  color: #707070;
+  font-weight: 500;
+  width: auto;
 }
 
 .modalButtons {
-  /* display: flex;
+  display: flex;
   justify-content: space-between;
-  align-items:center;
-  margin-top:auto;
-  margin-bottom: 1rem; 
-  border: 1px solid; */
   position: absolute;
   bottom: 1rem;
   left: 20px; /* Adjust this value if needed */
@@ -181,7 +205,7 @@
 }
 
 .modalButtons button {
-  width: 140px;
+  width: 150px;
   height: 45px;
   border-radius: 8px;
   font-size: 16px;
@@ -201,4 +225,7 @@
   background-color: #17a2b8;
   color: #fff;
   border: none;
+}
+.requiredStar {
+  color: #FF0000;
 }

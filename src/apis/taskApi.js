@@ -16,7 +16,6 @@ const createTask = async (taskData) => {
         Authorization: `Bearer ${accessToken}`
       }
     });
-    console.log(response);
     return response.data;
   } catch (error) {
     console.log('Error creating task:', error);
@@ -39,6 +38,23 @@ const getAllTasks = async () => {
     throw error.response.data.message || 'Failed to fetch tasks';
   }
 };
+
+// Get a task by ID
+const getTaskById = async (taskId) => {
+  try {
+    const accessToken = getAccessToken();
+    const response = await axios.get(`${API_URL}/${taskId}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
+    return response.data?.data;
+  } catch (error) {
+    console.error('Error fetching task by ID:', error);
+    throw error.response.data.message || 'Failed to fetch task by ID';
+  }
+};
+
 
 // Update a task
 const updateTask = async (taskId, taskData) => {
@@ -88,4 +104,21 @@ const updateTaskColumn = async (taskId, columnData) => {
   }
 };
 
-export { createTask, getAllTasks, updateTask, deleteTask, updateTaskColumn };
+// Get tasks filtered by creation date
+const   getTasksByFilter = async (filter) => {
+  try {
+    const accessToken = getAccessToken();
+    const response = await axios.get(`${API_URL}/filter/${filter}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
+    console.log(response);
+    return response.data?.data;
+  } catch (error) {
+    console.error('Error fetching tasks by Filter:', error);
+    throw error.response.data.message || 'Failed to fetch tasks by Filter';
+  }
+};
+
+export { createTask, getAllTasks, getTaskById, updateTask, deleteTask, updateTaskColumn ,  getTasksByFilter };

@@ -1,44 +1,67 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faEnvelope,
-  faLock,
   faEye,
   faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 import { useUserContext } from "../../utils/userContext"; // Import userContext without .jsx extension
+import EmailIcon from '../../assets/icons/email.svg';
+import lockIcon from '../../assets/icons/lock.svg'
+import { toast } from "react-toastify"; // Import toast from react-toastify
+
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login } = useUserContext(); // Access loginUser function from userContext
-
+  const { login, error } = useUserContext();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const { email, password } = formData;
+  //   try {
+  //     // Call the loginUser function from the userContext
+  //     const response = await login({ email, password });
+  //     // If login is successful, redirect to home page
+  //     console.log(response);
+  //     if (response) {
+  //       console.log("User Logged in ", response);
+  //       navigate("/dashboard");
+  //     }
+
+  //   } catch (error) {
+  //     // If login fails, set error message
+  //     setError(error.message);
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { email, password } = formData;
     try {
       // Call the loginUser function from the userContext
-      const response = await login({ email, password });
+     const response= await login({ email, password });
+     console.log(response);
       // If login is successful, redirect to home page
-      if (response) {
-        console.log("User Logged in ", response);
+      if(response.success){
         navigate("/dashboard");
       }
+      else if(!response.data){
+        toast.error(error || "Login failed");
+      }
     } catch (error) {
-      // If login fails, set error message
-      setError(error.message);
+      // If login fails, display toast message with the error
+      toast.error(error || "Login failed");
     }
   };
 
@@ -49,10 +72,9 @@ const Login = () => {
   return (
     <div className={styles.container}>
       <h2 className={styles.heading}>Login</h2>
-      {error && <p className={styles.error}>{error}</p>}
       <form onSubmit={handleSubmit}>
         <div className={styles.formGroup}>
-          <FontAwesomeIcon icon={faEnvelope} className={styles.icon} />
+          <img src={EmailIcon} className={styles.icon} />
           <input
             type="email"
             name="email"
@@ -64,7 +86,7 @@ const Login = () => {
           />
         </div>
         <div className={styles.formGroup}>
-          <FontAwesomeIcon icon={faLock} className={styles.icon} />
+          <img src={lockIcon} className={styles.icon} />
           <input
             type={showPassword ? "text" : "password"}
             name="password"

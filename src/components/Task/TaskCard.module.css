@@ -2,7 +2,7 @@
   background-color: white;
   border-radius: 20px;
   padding: 14px;
-  margin-bottom: 10px;
+  margin-bottom: 1em;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -15,7 +15,6 @@
   align-items: center;
   font-size: 10px;
   color: #707070;
-
 }
 
 .priorityDot {
@@ -45,6 +44,7 @@
   display: flex;
   justify-content: space-between;
   color: #000;
+  font-weight: 500;
 }
 .checklist {
   display: flex;
@@ -68,14 +68,13 @@
   font-size: 16px;
   font-weight: 400;
 }
-.checkbox{
+.checkbox {
   margin-left: 10px;
-  border: 2px solid#E2E2E2;
-  border-radius: 20px;
+  border: 2px solid #E2E2E2;
+  border-radius: 4px; /* Adjusted border-radius */
   height: 18px;
   width: 18px;
 }
-
 
 .collapseIcon {
   cursor: pointer;
@@ -88,18 +87,12 @@
 
 }
 
-
-/* .dueDate {
-  background-color: #eeecec;
-  border-radius: 8px;
-  margin-right: 10px;
-} */
 .formattedDate{
   background-color: #DBDBDB;
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 500;
   border-radius: 8px;
-  padding: 6px 10px;
+  padding: 8px 10px;
   color: #5A5A5A;
 }
 
@@ -108,7 +101,6 @@
 }
 .columnButtons {
   display: flex;
-  
 }
 
 .columnButtons button {
@@ -116,7 +108,7 @@
   color: #767575;
   font-weight: 500;
   border: none;
-  padding: 5px 10px;
+  padding: 8px 10px;
   margin-left: 5px;
   border-radius: 8px;
   cursor: pointer;

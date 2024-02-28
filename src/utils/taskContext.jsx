@@ -62,7 +62,7 @@ export const TaskProvider = ({ children }) => {
     }
   };
 
-  useEffect
+
   // Define the value of the context
   const value = {
     createTask,

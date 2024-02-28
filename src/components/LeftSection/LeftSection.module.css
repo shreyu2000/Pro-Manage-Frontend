@@ -5,39 +5,26 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    font-size: 18px;
-    font-weight: 500;
+    border: 1px solid #EDF5FE;
+    font-family: "Poppins";
    
   }
-  .logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1.5rem;
-    margin-bottom: 20px;
-    font-size: 1.3rem;
-    color: #000000;
-    font-weight: 700;
-  }
   
-  .logo img {
-    width: 23px; /* Adjust the width of the image */
-    height: 23px; /* Adjust the height of the image */
-    margin-right: 10px; /* Add some spacing between the image and the text */
-  }
   .navLinks {
     list-style: none;
     padding: 0px;
-    
   }
   
-.navItem {    padding: 20px;
+.navItem {    
+    padding:20px 35px;
     cursor: pointer;
     gap: 1rem;
-    font-size: 1.3rem;
+    font-size: 16px;
     display: flex;
     justify-content: flex-start;
-   
+    margin: 5px auto;
+    color: #707070;
+    line-height: 24px;
 
   }
   
@@ -46,18 +33,24 @@
     color: #000000;/* Active link text color */
     font-weight: 600;
   }
+  .logo {
+    color: #000000;
+    font-weight: 700; 
+  }
+
   .logoutButton {
+    display: flex;
+    gap:16px;
+    justify-content: center;
     margin-top: auto; /* Push logout button to the bottom */
-    padding: 10px;
+    padding: 12px;
     cursor: pointer;
     font-size: 1.3rem;
     color: #cf3636; /* Logout icon and text color */
     background-color: transparent; /* Remove background color */
     border: none; /* Remove border */
-    margin-bottom: 3rem;
-     display: flex;
-     gap:14px;
-    justify-content: center;
+    margin-bottom: 4rem;
+    padding: 20px 40px;
     
   }
   .icon {

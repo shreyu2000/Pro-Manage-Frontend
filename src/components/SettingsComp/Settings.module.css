@@ -10,17 +10,18 @@
 }
 
   .heading {
-    font-size: 2rem;
+    font-size: 24px;
     color: #343434;
     font-weight: 600;
+    font-family: "Open Sans";
   }
   
   .formGroup {
     width: 400px;
     margin-bottom: 20px;
-    border: 1px solid #d0d0d0;
-    border-radius: 12px;
-    padding: 10px;
+    border: 1.3px solid #d0d0d0;
+    border-radius: 14px;
+    padding: 8px;
     display: flex;
     align-items: center;
   }

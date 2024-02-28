@@ -1,0 +1,62 @@
+.analyticscontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 10px;
+    
+  }
+
+  .heading{
+    font-family: "Open Sans";
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 3rem;
+    margin-left: 1rem;
+  }
+  
+  .countscontainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    min-width: 950px;
+    height: 260px;
+    padding: 0.5rem;
+  }
+  
+  .countlists {
+    width: 50%; /* Adjusted width to accommodate the gap between lists */
+    background: #F9FCFF;
+    font-size: 18px;
+    font-weight: 400;
+    color: #000;
+    font-family: "Open Sans";
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    
+  }
+
+.countlists  ul li{
+    padding: 10px;
+}
+
+.countlists ul li {
+    margin-left: 10px; /* Add margin to create space between text and counts */
+    padding: 15px 20px; /* Adjusted padding for better spacing */
+    display: flex; /* Use flexbox for alignment */
+    justify-content: space-between; 
+    position: relative;
+    font-weight: 500;
+  }
+
+
+  .countlists ul li::before {
+    content: "•"; /* Custom marker content */
+    color: #90C4CC; /* Color of the custom marker */
+    position: absolute; /* Position the marker relative to the list item */
+    left: -20px; /* Adjust the position of the marker */
+    top: -5px;
+    right: -1px;
+    font-size: 45px; /* Increase the size of the marker */
+  }
+  

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef  } from 'react';
 import { fetchUserData } from '../../apis/userApi';
 import styles from './Board.module.css';
 import FilterOptions from '../Filter/FilterOptions';
 import TaskColumn from '../Task/TaskColumn';
-import { getAllTasks} from '../../apis/taskApi'; // Import the task API functions
+import { getTasksByFilter } from '../../apis/taskApi'; // Import the task API functions
 
 const Board = () => {
   const [name, setName] = useState('User');
@@ -13,6 +13,8 @@ const Board = () => {
   const [showFilterOptions, setShowFilterOptions] = useState(false);
   const [tasks, setTasks] = useState([]); // State to store tasks
   const [loading, setLoading] = useState(true); // State to indicate loading state
+
+  const filterOptionsRef = useRef(null);
 
   useEffect(() => {
     const fetchUserSettings = async () => {
@@ -30,35 +32,21 @@ const Board = () => {
     setCurrentDate(formattedDate);
   }, []);
 
-  // useEffect(() => {
-  //   const fetchTasks = async () => {
-  //     setLoading(true); // Set loading to true before fetching tasks
-  //     try {
-  //       const tasksData = await getAllTasks();
-  //       setTasks(tasksData.data); // Update tasks state with fetched tasks
-  //       setLoading(false); 
-  //     } catch (error) {
-  //       console.error('Error fetching tasks:', error);
-  //       setError('Failed to fetch tasks');
-  //     }
-  //   };
-  //   fetchTasks();
-  // }, []);
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const tasksData = await getAllTasks();
-        setTasks(tasksData.data); // Update tasks state with fetched tasks
+        const tasksData = await getTasksByFilter(selectedFilter);
+        console.log(tasksData);
+        setTasks(tasksData); // Update tasks state with fetched tasks
         setLoading(false); // Set loading to false after fetching tasks
       } catch (error) {
-        console.error('Error fetching tasks:', error);
+        console.error(`Error fetching tasks for filter '${selectedFilter}':`, error);
         setError('Failed to fetch tasks');
         setLoading(false); // Ensure loading state is set to false even if there's an error
       }
     };
     fetchTasks();
-  }, [tasks]); // Empty dependency array, fetch tasks only once when component mounts
-
+  }, [selectedFilter,tasks]); // Fetch tasks whenever the selected filter changes
 
   const handleFilter = (selectedFilter) => {
     setSelectedFilter(selectedFilter);
@@ -69,11 +57,19 @@ const Board = () => {
     setShowFilterOptions(!showFilterOptions);
   };
 
-  // Filter tasks based on the selected column
-  const backlogTasks = tasks.filter(task => task.column === 'BACKLOG');
-  const todoTasks = tasks.filter(task => task.column === 'TO-DO');
-  const inProgressTasks = tasks.filter(task => task.column === 'PROGRESS');
-  const doneTasks = tasks.filter(task => task.column === 'DONE');
+  const handleClickOutside = (event) => {
+    if (filterOptionsRef.current && !filterOptionsRef.current.contains(event.target)) {
+      setShowFilterOptions(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
 
   return (
     <div className={styles.boardcontainer}>
@@ -84,7 +80,7 @@ const Board = () => {
         </div>
         <div className={styles.boardheading}>
           <h2>Board</h2>
-          <div className={styles.filterContainer}>
+          <div className={styles.filterContainer}  ref={filterOptionsRef}>
             <button className={styles.filterButton} onClick={toggleFilterOptions}>
               {selectedFilter === 'today' ? 'Today' : selectedFilter === 'thisWeek' ? 'This Week' : 'This Month'}
               <span className={styles.arrowDown}></span>
@@ -95,12 +91,12 @@ const Board = () => {
       </div>
       <div className={styles.columncontainer}>
         {/* Render TaskColumns with filtered tasks */}
-        <TaskColumn title="Backlog" tasks={backlogTasks} />
-        <TaskColumn title="To do" tasks={todoTasks} isToDo={true} />
-        <TaskColumn title="In progress" tasks={inProgressTasks} />
-        <TaskColumn title="Done" tasks={doneTasks} />
+        <TaskColumn title="Backlog" tasks={tasks.filter(task => task.column === 'BACKLOG')} />
+        <TaskColumn title="To do" tasks={tasks.filter(task => task.column === 'TO-DO')} isToDo={true} />
+        <TaskColumn title="In progress" tasks={tasks.filter(task => task.column === 'PROGRESS')} />
+        <TaskColumn title="Done" tasks={tasks.filter(task => task.column === 'DONE')} />
       </div>
-      {loading && <div>Loading...</div>} 
+      {loading && <div>Loading...</div>}
       {error && <div>Error: {error}</div>} {/* Render error message */}
     </div>
   );

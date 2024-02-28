@@ -4,10 +4,10 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-right: 20px; /* Adjust margin as needed */
   flex: 1;
-  min-width: 340px;
+  min-width: 350px;
   max-height: 100vh;
   margin-bottom: 1rem;
-  padding: 1rem;
+  padding: 0.8rem;
   font-family: "Poppins";
 }
 
@@ -31,7 +31,7 @@
 }
 
 .taskList::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 .taskList::-webkit-scrollbar-thumb {
@@ -40,7 +40,7 @@
 }
 
 .taskList::-webkit-scrollbar-track {
-  background-color: #f4f4f4;
+  background-color: #D6EAF4;
 }
 
 .columnHeader button {
